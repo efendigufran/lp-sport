@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>REA Tennis Exhibition</title>
+
+    <link rel="stylesheet" href="tennis.css">
+
+    <!-- Firebase -->
+    <script type="module" src="tennis.js"></script>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+        <div class="brand-icon">🎾</div>
+
+        <div>
+            <h1>REA Tennis Exhibition 2026</h1>
+            <span>Competition Dashboard</span>
+        </div>
+    </div>
+
+    <div class="top-actions">
+        <button id="btnRefresh" class="btn btn-secondary">
+            ↻ Refresh
+        </button>
+
+        <button id="btnAddMatch" class="btn btn-primary">
+            + Match
+        </button>
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <!-- ============================= -->
+    <!-- TOURNAMENT INFO -->
+    <!-- ============================= -->
+
+    <section class="hero-card">
+
+        <div>
+            <span class="eyebrow">TENNIS TOURNAMENT</span>
+
+            <h2 id="tournamentName">
+                Tennis Championship 2026
+            </h2>
+
+            <p id="tournamentInfo">
+                Group Stage → Playoff
+            </p>
+        </div>
+
+        <div class="competition-status">
+            <span class="status-dot"></span>
+            <span id="competitionStatus">
+                Group Stage
+            </span>
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- NAVIGATION -->
+    <!-- ============================= -->
+
+    <nav class="tabs">
+
+        <button
+            class="tab active"
+            data-tab="matches">
+            Matches
+        </button>
+
+        <button
+            class="tab"
+            data-tab="standings">
+            Standings
+        </button>
+
+        <button
+            class="tab"
+            data-tab="playoff">
+            Playoff
+        </button>
+
+    </nav>
+
+
+    <!-- ============================= -->
+    <!-- MATCHES -->
+    <!-- ============================= -->
+
+    <section
+        id="matches"
+        class="tab-content active">
+
+        <div class="section-header">
+
+            <div>
+                <h3>Group Stage Matches</h3>
+                <p>
+                    Pertandingan fase grup dengan sistem round robin.
+                </p>
+            </div>
+
+            <div class="filter-group">
+
+                <select id="groupFilter">
+                    <option value="all">
+                        Semua Group
+                    </option>
+                </select>
+
+                <select id="matchStatusFilter">
+
+                    <option value="all">
+                        Semua Status
+                    </option>
+
+                    <option value="scheduled">
+                        Scheduled
+                    </option>
+
+                    <option value="finished">
+                        Finished
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div
+            id="matchList"
+            class="match-list">
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- STANDINGS -->
+    <!-- ============================= -->
+
+    <section
+        id="standings"
+        class="tab-content">
+
+        <div class="section-header">
+
+            <div>
+                <h3>Group Standings</h3>
+                <p>
+                    Ranking berdasarkan hasil pertandingan.
+                </p>
+            </div>
+
+        </div>
+
+        <div
+            id="standingsContainer"
+            class="standings-container">
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- PLAYOFF -->
+    <!-- ============================= -->
+
+    <section
+        id="playoff"
+        class="tab-content">
+
+        <div class="section-header">
+
+            <div>
+                <h3>Playoff</h3>
+
+                <p>
+                    Peringkat 1 dan 2 setiap group lolos ke playoff.
+                </p>
+            </div>
+
+        </div>
+
+        <div
+            id="playoffBracket"
+            class="playoff-bracket">
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================================= -->
+<!-- MATCH MODAL -->
+<!-- ================================= -->
+
+<div
+    id="matchModal"
+    class="modal hidden">
+
+    <div class="modal-overlay"></div>
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <span class="eyebrow">
+                    MATCH
+                </span>
+
+                <h3 id="modalTitle">
+                    Match
+                </h3>
+            </div>
+
+            <button
+                id="btnCloseModal"
+                class="modal-close">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="matchForm">
+
+            <input
+                type="hidden"
+                id="matchId">
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Group
+                    </label>
+
+                    <select
+                        id="matchGroup"
+                        required>
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Round
+                    </label>
+
+                    <input
+                        type="number"
+                        id="matchRound"
+                        min="1"
+                        value="1"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="matchDate">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="matchTime">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Home / Team 1
+                    </label>
+
+                    <select
+                        id="homeTeam"
+                        required>
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Away / Team 2
+                    </label>
+
+                    <select
+                        id="awayTeam"
+                        required>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- SCORE -->
+
+            <div class="score-section">
+
+                <h4>
+                    Score
+                </h4>
+
+
+                <div class="set-header">
+
+                    <span></span>
+
+                    <span>
+                        Set 1
+                    </span>
+
+                    <span>
+                        Set 2
+                    </span>
+
+                    <span>
+                        Set 3
+                    </span>
+
+                </div>
+
+
+                <div class="score-row">
+
+                    <strong id="homeScoreName">
+                        Team 1
+                    </strong>
+
+                    <input
+                        type="number"
+                        id="homeSet1"
+                        min="0">
+
+                    <input
+                        type="number"
+                        id="homeSet2"
+                        min="0">
+
+                    <input
+                        type="number"
+                        id="homeSet3"
+                        min="0">
+
+                </div>
+
+
+                <div class="score-row">
+
+                    <strong id="awayScoreName">
+                        Team 2
+                    </strong>
+
+                    <input
+                        type="number"
+                        id="awaySet1"
+                        min="0">
+
+                    <input
+                        type="number"
+                        id="awaySet2"
+                        min="0">
+
+                    <input
+                        type="number"
+                        id="awaySet3"
+                        min="0">
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Status
+                </label>
+
+                <select id="matchStatus">
+
+                    <option value="scheduled">
+                        Scheduled
+                    </option>
+
+                    <option value="finished">
+                        Finished
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="btnDeleteMatch"
+                    class="btn btn-danger">
+                    Delete
+                </button>
+
+                <div>
+
+                    <button
+                        type="button"
+                        id="btnCancel"
+                        class="btn btn-secondary">
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+                        Save Match
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+</body>
+</html>
