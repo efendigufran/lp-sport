@@ -12,12 +12,12 @@ import {
    Ganti dengan config Firebase project Football-League/Tennis
    ========================================================= */
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.firebasestorage.app",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAWkHbWD-o9FMXqJtZ8dVdGvFMXf3lEZWM",
+  authDomain: "lopi-sports.firebaseapp.com",
+  projectId: "lopi-sports",
+  storageBucket: "lopi-sports.firebasestorage.app",
+  messagingSenderId: "938894851824",
+  appId: "1:938894851824:web:f097c9ad6942218b094c35"
 };
 
 const app = initializeApp(firebaseConfig);
