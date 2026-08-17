@@ -43,7 +43,7 @@ const COLLECTIONS = {
 const GROUPS = ["A", "B", "C", "D"];
 const GROUP_TEAM_COUNT = 5;
 
-const DEFAULT_TITLE = "Men's Doubles Championship";
+const DEFAULT_TITLE = "REA Tennis Exhibition 2026";
 const DEFAULT_SUBTITLE =
   "4 Groups × 5 Teams • Group Stage → Playoff";
 
