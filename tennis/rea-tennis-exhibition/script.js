@@ -18,12 +18,12 @@ import {
    ========================================================= */
 
 const firebaseConfig = {
-  apiKey: "xxx",
-  authDomain: "xxx",
-  projectId: "xxx",
-  storageBucket: "xxx",
-  messagingSenderId: "xxx",
-  appId: "xxx"
+  apiKey: "AIzaSyAWkHbWD-o9FMXqJtZ8dVdGvFMXf3lEZWM",
+  authDomain: "lopi-sports.firebaseapp.com",
+  projectId: "lopi-sports",
+  storageBucket: "lopi-sports.firebasestorage.app",
+  messagingSenderId: "938894851824",
+  appId: "1:938894851824:web:f097c9ad6942218b094c35"
 };
 
 const app = initializeApp(firebaseConfig);
