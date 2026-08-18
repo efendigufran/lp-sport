@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REA Tennis Exhibition</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toast" class="toast hidden"></div>
+
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">Men's Doubles Championship</div>
+      <h1 id="tournamentTitle">REA Tennis Exhibition 2026</h1>
+      <p class="subtitle">4 Groups × 5 Teams • Group Stage → Playoff</p>
+    </div>
+    <button id="adminBtn" class="btn btn-primary">Admin</button>
+  </header>
+
+  <main class="container">
+    <section class="hero-stats">
+      <div class="stat-card">
+        <span>Teams</span><strong id="statTeams">20</strong>
+      </div>
+      <div class="stat-card">
+        <span>Group Matches</span><strong id="statGroupMatches">40</strong>
+      </div>
+      <div class="stat-card">
+        <span>Playoff Matches</span><strong id="statPlayoffMatches">7</strong>
+      </div>
+      <div class="stat-card">
+        <span>Completed</span><strong id="statCompleted">0</strong>
+      </div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab active" data-page="dashboard">Dashboard</button>
+      <button class="tab" data-page="groups">Groups</button>
+      <button class="tab" data-page="schedule">Schedule</button>
+      <button class="tab" data-page="playoff">Playoff</button>
+      <button class="tab" data-page="teams">Teams</button>
+    </nav>
+
+    <section id="page-dashboard" class="page active">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">OVERVIEW</div>
+          <h2>Competition Dashboard</h2>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Group Standings</h3>
+            <span class="muted">1st: Points → Score Difference → H2H</span>
+          </div>
+          <div id="dashboardStandings" class="mini-groups"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Latest Results</h3>
+            <button class="text-btn" data-page-target="schedule">View all</button>
+          </div>
+          <div id="latestResults" class="match-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-groups" class="page">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">GROUP STAGE</div>
+          <h2>Group Standings</h2>
+        </div>
+        <div class="legend">
+          <span><i class="dot qualified"></i> Qualified</span>
+          <span><i class="dot"></i> Other</span>
+        </div>
+      </div>
+      <div id="allStandings" class="groups-grid"></div>
+    </section>
+
+    <section id="page-schedule" class="page">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">MATCH CENTER</div>
+          <h2>Schedule & Results</h2>
+        </div>
+        <div class="filters">
+          <select id="scheduleStage">
+            <option value="all">All Stages</option>
+            <option value="group">Group Stage</option>
+            <option value="playoff">Playoff</option>
+          </select>
+          <select id="scheduleGroup">
+            <option value="all">All Groups</option>
+            <option value="A">Group A</option>
+            <option value="B">Group B</option>
+            <option value="C">Group C</option>
+            <option value="D">Group D</option>
+          </select>
+          <button id="addMatchBtn" class="btn btn-primary">+ Add Match</button>
+        </div>
+      </div>
+      <div id="scheduleList" class="schedule-list"></div>
+    </section>
+
+    <section id="page-playoff" class="page">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">KNOCKOUT STAGE</div>
+          <h2>Playoff Bracket</h2>
+          <p class="muted">Juara & runner-up setiap group masuk quarterfinal.</p>
+        </div>
+      </div>
+      <div id="playoffBracket" class="bracket"></div>
+    </section>
+
+    <section id="page-teams" class="page">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">PARTICIPANTS</div>
+          <h2>Teams</h2>
+        </div>
+        <button id="addTeamBtn" class="btn btn-primary">+ Add Team</button>
+      </div>
+      <div id="teamsGrid" class="teams-grid"></div>
+    </section>
+  </main>
+
+  <div id="matchModal" class="modal hidden">
+    <div class="modal-card modal-lg">
+      <div class="modal-head">
+        <div>
+          <div class="eyebrow">MATCH</div>
+          <h2 id="matchModalTitle">Add Match</h2>
+        </div>
+        <button class="icon-btn" data-close="matchModal">×</button>
+      </div>
+
+      <form id="matchForm">
+        <input type="hidden" id="matchId">
+        <div class="form-grid">
+          <label>
+            Stage
+            <select id="matchStage" required>
+              <option value="group">Group Stage</option>
+              <option value="playoff">Playoff</option>
+            </select>
+          </label>
+          <label>
+            Group
+            <select id="matchGroup">
+              <option value="A">Group A</option>
+              <option value="B">Group B</option>
+              <option value="C">Group C</option>
+              <option value="D">Group D</option>
+              <option value="">— Playoff —</option>
+            </select>
+          </label>
+          <label>
+            Date
+            <input type="date" id="matchDate" required>
+          </label>
+          <label>
+            Time
+            <input type="time" id="matchTime">
+          </label>
+          <label>
+            Court
+            <input type="text" id="matchCourt" placeholder="Court 1">
+          </label>
+          <label>
+            Round
+            <select id="matchRound">
+              <option value="Group">Group</option>
+              <option value="QF1">Quarterfinal 1</option>
+              <option value="QF2">Quarterfinal 2</option>
+              <option value="QF3">Quarterfinal 3</option>
+              <option value="QF4">Quarterfinal 4</option>
+              <option value="SF1">Semifinal 1</option>
+              <option value="SF2">Semifinal 2</option>
+              <option value="Final">Final</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="match-input-grid">
+          <div class="team-input">
+            <label>Team 1</label>
+            <select id="team1Id" required></select>
+            <div class="score-row">
+              <input type="number" min="0" max="7" id="set11" placeholder="Set 1">
+              <input type="number" min="0" max="7" id="set12" placeholder="Set 2">
+              <input type="number" min="0" max="7" id="set13" placeholder="Set 3">
+            </div>
+          </div>
+
+          <div class="vs">VS</div>
+
+          <div class="team-input">
+            <label>Team 2</label>
+            <select id="team2Id" required></select>
+            <div class="score-row">
+              <input type="number" min="0" max="7" id="set21" placeholder="Set 1">
+              <input type="number" min="0" max="7" id="set22" placeholder="Set 2">
+              <input type="number" min="0" max="7" id="set23" placeholder="Set 3">
+            </div>
+          </div>
+        </div>
+
+        <div class="result-preview" id="resultPreview">
+          <span>Winner</span><strong id="previewWinner">—</strong>
+        </div>
+
+        <label>
+          Match photo
+          <input type="file" id="matchImage" accept="image/*">
+          <small class="muted">Upload foto hasil pertandingan. JPG/PNG/WebP, maksimal 5 MB.</small>
+        </label>
+
+        <div id="currentImageWrap" class="current-image hidden">
+          <img id="currentImage" alt="Current match">
+          <button type="button" id="removeImageBtn" class="btn btn-danger btn-sm">Remove photo</button>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" data-close="matchModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Match</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="teamModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <div class="eyebrow">TEAM</div>
+          <h2 id="teamModalTitle">Add Team</h2>
+        </div>
+        <button class="icon-btn" data-close="teamModal">×</button>
+      </div>
+
+      <form id="teamForm">
+        <input type="hidden" id="editTeamId">
+        <label>Team Name <input type="text" id="teamName" required></label>
+        <div class="form-grid">
+          <label>
+            Player 1
+            <input type="text" id="player1" required>
+          </label>
+          <label>
+            Player 2
+            <input type="text" id="player2" required>
+          </label>
+          <label>
+            Group
+            <select id="teamGroup" required>
+              <option value="A">Group A</option>
+              <option value="B">Group B</option>
+              <option value="C">Group C</option>
+              <option value="D">Group D</option>
+            </select>
+          </label>
+          <label>
+            Seed
+            <input type="number" id="teamSeed" min="1" max="20">
+          </label>
+        </div>
+        <label>
+          Team logo/photo
+          <input type="file" id="teamImage" accept="image/*">
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" data-close="teamModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Team</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="adminModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <div class="eyebrow">TOURNAMENT</div>
+          <h2>Admin</h2>
+        </div>
+        <button class="icon-btn" data-close="adminModal">×</button>
+      </div>
+      <form id="settingsForm">
+        <label>
+          Tournament title
+          <input id="settingsTitle" required>
+        </label>
+        <label>
+          Tournament subtitle
+          <input id="settingsSubtitle">
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" data-close="adminModal">Cancel</button>
+          <button class="btn btn-primary">Save Settings</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
