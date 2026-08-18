@@ -1351,26 +1351,6 @@ function matchCard(match) {
           `
       }
 
-
-      <div class="match-actions">
-
-        <button
-          class="btn btn-sm"
-          data-edit-match="${match.id}"
-        >
-          Edit
-        </button>
-
-
-        <button
-          class="btn btn-sm btn-danger"
-          data-delete-match="${match.id}"
-        >
-          Delete
-        </button>
-
-      </div>
-
     </article>
 
   `;
