@@ -1448,7 +1448,7 @@ function renderLatestResults() {
             }`
           )
       )
-      .slice(0, 5);
+      .slice(0, 7);
 
 
   els.latestResults.innerHTML =
