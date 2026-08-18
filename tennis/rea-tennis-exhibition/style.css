@@ -58,7 +58,7 @@ form{display:grid;gap:15px}label{display:grid;gap:6px;font-weight:650;font-size:
 ========================================================= */
 
 .site-footer {
-  margin-top: 60px;
+  /* margin-top: 60px; */
   border-top: 1px solid var(--line);
   background: var(--surface);
 }
