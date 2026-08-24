@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Badminton Club Management</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">🏸</div>
+
+            <div>
+                <h2>Badminton</h2>
+                <span>Club Management</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <button class="nav-item active" data-page="dashboard">
+                🏠 Dashboard
+            </button>
+
+            <button class="nav-item" data-page="matches">
+                🏸 Pertandingan
+            </button>
+
+            <button class="nav-item" data-page="members">
+                👥 Anggota
+            </button>
+
+            <button class="nav-item" data-page="cash">
+                💰 Kas Anggota
+            </button>
+
+            <button class="nav-item" data-page="statistics">
+                📊 Statistik Permainan
+            </button>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+
+                <p>
+                    Badminton Club Activity
+                </p>
+            </div>
+
+            <div class="header-actions">
+
+                <button
+                    class="btn primary"
+                    id="addMatchBtn">
+                    + Pertandingan
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+        <section id="dashboardPage" class="page">
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span>Total Anggota</span>
+                    <strong id="totalMembers">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Total Pertandingan</span>
+                    <strong id="totalMatches">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Total Cock</span>
+                    <strong id="totalCock">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Total Biaya Cock</span>
+                    <strong id="totalCockCost">
+                        Rp 0
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <h2>Pertandingan Terakhir</h2>
+                    </div>
+
+                    <div id="recentMatches">
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <h2>Top Player</h2>
+                    </div>
+
+                    <div id="topPlayers">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MATCHES -->
+        <section
+            id="matchesPage"
+            class="page hidden">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Data Pertandingan</h2>
+
+                    <p>
+                        Pencatatan hasil permainan dan penggunaan cock
+                    </p>
+                </div>
+
+                <button
+                    class="btn primary"
+                    id="addMatchBtn2">
+                    + Tambah Pertandingan
+                </button>
+
+            </div>
+
+            <div class="card">
+
+                <div
+                    id="matchesTable"
+                    class="table-wrapper">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MEMBERS -->
+        <section
+            id="membersPage"
+            class="page hidden">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Anggota Klub</h2>
+
+                    <p>
+                        Daftar anggota badminton club
+                    </p>
+
+                </div>
+
+                <button
+                    class="btn primary"
+                    id="addMemberBtn">
+                    + Tambah Anggota
+                </button>
+
+            </div>
+
+            <div class="card">
+
+                <div
+                    id="membersTable"
+                    class="table-wrapper">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CASH -->
+        <section
+            id="cashPage"
+            class="page hidden">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Summary Kas Anggota</h2>
+
+                    <p>
+                        Iuran, penggunaan cock dan saldo anggota
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div
+                    id="cashTable"
+                    class="table-wrapper">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STATISTICS -->
+        <section
+            id="statisticsPage"
+            class="page hidden">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Summary Permainan Anggota</h2>
+
+                    <p>
+                        Statistik pertandingan setiap anggota
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div
+                    id="statisticsTable"
+                    class="table-wrapper">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer>
+
+            <div class="footer-content">
+
+                <div class="footer-logo">
+                    <!-- Logo tim developer -->
+                    <img
+                        src="assets/dev-logo.png"
+                        alt="Developer Logo">
+                </div>
+
+                <div>
+                    <strong>
+                        Badminton Club Management
+                    </strong>
+
+                    <span>
+                        © 2026 Development Team
+                    </span>
+                </div>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+
+    <!-- MATCH MODAL -->
+
+    <div
+        id="matchModal"
+        class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2 id="matchModalTitle">
+                    Tambah Pertandingan
+                </h2>
+
+                <button
+                    class="close-modal"
+                    id="closeMatchModal">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="matchForm">
+
+                <input
+                    type="hidden"
+                    id="matchId">
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Tanggal
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            id="matchDate"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Harga 1 Cock
+                        </label>
+
+                        <input
+                            type="number"
+                            id="cockPrice"
+                            placeholder="Contoh: 25000"
+                            min="0"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Jumlah Cock
+                        </label>
+
+                        <input
+                            type="number"
+                            id="cockQty"
+                            min="1"
+                            value="1"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Total Harga Cock
+                        </label>
+
+                        <input
+                            type="text"
+                            id="cockTotalPreview"
+                            readonly>
+
+                    </div>
+
+                </div>
+
+
+                <div class="players-section">
+
+                    <div class="players-header">
+
+                        <h3>
+                            Pemain
+                        </h3>
+
+                        <button
+                            type="button"
+                            class="btn secondary"
+                            id="addPlayerBtn">
+                            + Pemain
+                        </button>
+
+                    </div>
+
+                    <div id="playersContainer"></div>
+
+                </div>
+
+
+                <!-- PHOTO -->
+
+                <div class="photo-section">
+
+                    <h3>
+                        Foto Pertandingan
+                    </h3>
+
+                    <input
+                        type="file"
+                        id="matchPhoto"
+                        accept="image/*">
+
+                    <div
+                        id="photoPreview"
+                        class="photo-preview">
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Catatan
+                    </label>
+
+                    <textarea
+                        id="matchNotes"
+                        rows="3">
+                    </textarea>
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn secondary"
+                        id="cancelMatchBtn">
+                        Batal
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn primary">
+                        Simpan Pertandingan
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- MEMBER MODAL -->
+
+    <div
+        id="memberModal"
+        class="modal hidden">
+
+        <div class="modal-content small">
+
+            <div class="modal-header">
+
+                <h2>
+                    Tambah Anggota
+                </h2>
+
+                <button
+                    class="close-modal"
+                    id="closeMemberModal">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="memberForm">
+
+                <div class="form-group">
+
+                    <label>
+                        Nama Anggota
+                    </label>
+
+                    <input
+                        type="text"
+                        id="memberName"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Nomor HP
+                    </label>
+
+                    <input
+                        type="text"
+                        id="memberPhone">
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn secondary"
+                        id="cancelMemberBtn">
+                        Batal
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn primary">
+                        Simpan
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script type="module" src="script.js"></script>
+
+</body>
+
+</html>
